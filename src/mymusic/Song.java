@@ -55,7 +55,7 @@ public class Song {
 
     @Override
     public String toString() {
-        return String.format("%-20s\t%10s\t%6s\t%6s ", getAlbum(), getArtiest(), getSpeelduur(), getTitel());
+        return String.format("%-20s\t%10s\t%6s\t%6s ",getAlbum(), getArtiest(), getSpeelduur(), getTitel());
     }
 
 

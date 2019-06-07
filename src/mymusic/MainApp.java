@@ -1,8 +1,6 @@
 package mymusic;
 
-
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.Comparator;
 
 public class MainApp {
 
@@ -36,8 +34,7 @@ public class MainApp {
 
         try {
 
-//            playlist.removeSong(new Song("DSDS", "ARTIST DE MERDE", "Album 3", "0,20"));
-
+            // playlist.removeSong(new Song("DSDS", "ARTIST DE MERDE", "Album 3", "0,20"));
             playlist.removeSong(song1);
             System.out.println("\nSong List After Remove Song");
             System.out.println("*".repeat(40));
@@ -49,7 +46,31 @@ public class MainApp {
             me.printStackTrace();
         }
 
-    }
+        System.out.println("\nCount of songs in your List.");
+        System.out.println("*".repeat(40));
+        System.out.println(playlist.countOfPlayList());
 
+
+        System.out.println("\nDisplay all songs in your List.");
+        System.out.println("*".repeat(40));
+        playlist.displayPlaylist();
+
+
+        System.out.println("\nSort all songs in your List by Titel.");
+        System.out.println("*".repeat(40));
+        playlist.sortByName();
+        playlist.displayPlaylist();
+
+
+        System.out.println("\nSort all songs in your List by playing time.");
+        System.out.println("*".repeat(40));
+        playlist.sortByPlayingTime();
+        playlist.displayPlaylist();
+
+        System.out.println("\nSort all songs in your List by given comparator.");
+        System.out.println("*".repeat(40));
+        playlist.sort((Comparator.comparing(Song::getAlbum)));
+        playlist.displayPlaylist();
+    }
 }
 
