@@ -1,16 +1,16 @@
 package mymusic;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class Playlist {
 
     private Song[] songs;
+    private String playlistName;
 
 
-    public Playlist(Song... songs) {
+    public Playlist(String playlistName,Song... songs) {
         this.songs = songs;
     }
 
@@ -20,6 +20,10 @@ public class Playlist {
 
     public void setSongs(Song[] songs) {
         this.songs = songs;
+    }
+
+    public String getPlaylistName() {
+        return playlistName;
     }
 
     public void addSong(Song song) {
@@ -55,6 +59,10 @@ public class Playlist {
     public void sortByName() {
         songs = Arrays.stream(songs).sorted(Comparator.comparing(Song::getTitel))
                 .toArray(Song[]::new);
+    }
+
+    public void setPlaylistName(String playlistName) {
+        this.playlistName = playlistName;
     }
 
     public void sortByPlayingTime() {
