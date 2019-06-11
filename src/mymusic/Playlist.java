@@ -2,7 +2,9 @@ package mymusic;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Playlist {
 
@@ -10,7 +12,8 @@ public class Playlist {
     private String playlistName;
 
 
-    public Playlist(String playlistName,Song... songs) {
+    public Playlist(String playlistName, Song... songs) {
+        this.playlistName = playlistName;
         this.songs = songs;
     }
 
@@ -80,7 +83,7 @@ public class Playlist {
     @Override
     public String toString() {
         return "\nPlaylist{" +
-                "songs=" + Arrays.toString(songs) +
+                "songs=" + Arrays.asList(songs) +
                 '}';
     }
 }

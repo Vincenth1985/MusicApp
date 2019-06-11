@@ -2,18 +2,16 @@ package mymusic;
 
 //Verder is er het MusicCollection object, deze bevat een collectie van playlistsCollection.
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class MusicCollection {
 
 
-    public MusicCollection musicCollection;
     private String collectionName;
-    private Playlist[] playlistsCollection;
+    private Playlist[] playlistsCollection = new Playlist[ 0 ];
 
     public MusicCollection(String collectionName) {
 
@@ -25,7 +23,7 @@ public class MusicCollection {
         return playlistsCollection;
     }
 
-    public void setPlaylistsCollection(Playlist... playlistsCollection) {
+    public void setPlaylistsCollection(Playlist[] playlistsCollection) {
         this.playlistsCollection = playlistsCollection;
     }
 
@@ -33,9 +31,22 @@ public class MusicCollection {
         return collectionName;
     }
 
-    public void addPlayinglistToCollectino(Playlist playlist) {
+    public void addPlayinglistToCollectino(Playlist playlistToAdd) {
+        Playlist[] temp = Arrays.copyOf(playlistsCollection, playlistsCollection.length + 1);
+        temp[ temp.length - 1 ] = playlistToAdd;
+
+        this.playlistsCollection = temp;
+
+    }
+
+    public void removePlayList(Playlist playlistToRemove) {
         List<Playlist> playlists = new ArrayList<>();
-        playlists = Stream.of(playlistsCollection).collect(Collectors.toList());
+        for (int i = 0; i < playlistsCollection.length; i++) {
+            playlists.add(playlistsCollection[ i ]);
+        }
+        playlists.remove(playlistToRemove);
+
+        this.playlistsCollection = playlists.stream().toArray(Playlist[]::new);
 
     }
 
@@ -44,19 +55,35 @@ public class MusicCollection {
     }
 
     public void addSongToPlaylist(String playListName, Song songObject) {
-        this.playlistsCollection = Stream.of(playlistsCollection)
-                                         .collect(Collectors.toList())
-                                         .stream()
-                                         .peek(s -> s.addSong(songObject))
-                                         .toArray(Playlist[]::new);
+        for (int i = 0; i < playlistsCollection.length; i++) {
+            if (playlistsCollection[ i ].getPlaylistName().equalsIgnoreCase(playListName)) {
+                playlistsCollection[ i ].addSong(songObject);
+            }
+        }
+
+
     }
 
-    @Override
-    public String toString() {
-        return "MusicCollection{" +
-                "musicCollection=" + musicCollection +
-                ", collectionName='" + collectionName + '\'' +
-                ", playlistsCollection=" + Arrays.toString(playlistsCollection) +
-                '}';
+    public void removeSongFormPlaylist(String playListName, Song songObject) {
+        for (int i = 0; i < playlistsCollection.length; i++) {
+            if (playlistsCollection[ i ].getPlaylistName().equalsIgnoreCase(playListName)) {
+                playlistsCollection[ i ].removeSong(songObject);
+            }
+        }
+
+
+    }
+
+    public int countOfPlaylistsInCollection() {
+        return playlistsCollection.length;
+    }
+
+
+    public void printList() {
+
+        for (int i = 0; i < playlistsCollection.length; i++) {
+            System.out.println(playlistsCollection[ i ].getPlaylistName());
+
+        }
     }
 }
